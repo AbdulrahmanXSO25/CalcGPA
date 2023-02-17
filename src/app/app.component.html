@@ -1,0 +1,82 @@
+<div class="fw-bold my-4">
+  <div class="main-title">Dynamic GPA Calculator</div>
+</div>
+<div class="container d-flex flex-column flex-md-row gap-5 mt-4 mx-auto mb-5">
+
+  <div class="d-flex flex-column gap-3 fw-bold p-2 mx-auto">
+    <h2 class="text-center fw-bold">GPA Standards</h2>
+
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-3 text-center align-items-center" *ngFor="let grade of grades">
+      <div class="grade-letter">{{grade.letter}}</div>
+      <p-inputNumber
+      [(ngModel)]="grade.degree" [min]="0" [max]="4"
+      [step]="0.1"
+      class="letter-degree"
+      [showButtons]="true"
+      mode="decimal"></p-inputNumber>
+    </div>
+
+    <button pButton
+    type="button"
+    icon="pi pi-save"
+    iconPos="left"
+    label="Save"
+    (click)="saveGrades()"
+    class="w-100 p-button-danger"></button>
+
+  </div>
+
+  <div class="d-flex flex-column gap-3 fw-bold p-2 mx-auto">
+
+    <h2 class="text-center fw-bold">Subjects</h2>
+    <!-- Add Subject Section -->
+    <button pButton
+      *ngIf="!addMode && subjects.length > 0"
+      type="button"
+      icon="pi pi-plus"
+      iconPos="center"
+      (click)="enableAdd()"
+      class="w-100"></button>
+    <div *ngIf="addMode || subjects.length === 0" class="d-flex gap-md-2">
+      <input type="text" pInputText [(ngModel)]="virtualSubject.name" class="p-inputtext-sm" placeholder="Subject">
+      <button pButton
+      type="button"
+      icon="pi pi-plus"
+      iconPos="left"
+      label="Add"
+      (click)="addSubject()"
+      class="w-50 mx-2"></button>
+    </div>
+
+    <!-- Saved Subjects Section -->
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-3" *ngFor="let subject of subjects">
+      <span class="subject-name">{{subject.name}}</span>
+      <div class="d-flex justify-content-between">
+        <p-dropdown
+      [options]="grades"
+      [(ngModel)]="subject.mark"
+      class="select-item"
+      optionLabel="letter"
+      optionValue="degree"></p-dropdown>
+      <button pButton type="button" icon="pi pi-times"
+      class="p-button p-button-danger ms-2" iconPos="left"
+      (click)="deleteSubject(subject)"></button>
+      </div>
+    </div>
+
+    <!-- Cacl GPA Section -->
+    <button pButton
+      type="button"
+      icon="pi pi-check"
+      iconPos="right"
+      label="CALC"
+      (click)="calc()"
+      class="w-100 p-button-success"></button>
+
+    <h3 *ngIf="totalGPA" class="fw-bold mt-5 text-center">
+      GPA: <mark>{{totalGPA}}</mark>
+    </h3>
+
+  </div>
+
+</div>
