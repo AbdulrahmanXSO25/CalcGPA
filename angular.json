@@ -75,9 +75,6 @@
               "ssl": true
             },
             "development": {
-              "sslKey": "ssl/localhost-key.pem",
-              "sslCert": "ssl/localhost.pem",
-              "ssl": true,
               "browserTarget": "CalcGPA:build:development"
             }
           },
