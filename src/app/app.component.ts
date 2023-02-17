@@ -57,10 +57,12 @@ export class AppComponent implements OnInit{
   calc() {
     localStorage.setItem('subjects', JSON.stringify(this.subjects));
     this.totalGPA = 0;
+    let totalHours = 0;
     this.subjects.forEach(s => {
-      this.totalGPA += s.mark;
+      this.totalGPA += (s.mark * s.hours);
+      totalHours += s.hours;
     });
-    this.totalGPA = this.totalGPA / this.subjects.length;
+    this.totalGPA = this.totalGPA / totalHours;
   }
 
   deleteSubject(subject:Subject) {

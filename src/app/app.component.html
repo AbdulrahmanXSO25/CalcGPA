@@ -27,7 +27,7 @@
 
   </div>
 
-  <div class="d-flex flex-column gap-3 fw-bold p-2 mx-auto">
+  <div class="d-flex flex-column gap-3 fw-bold p-4 mx-auto">
 
     <h2 class="text-center fw-bold">Subjects</h2>
     <!-- Add Subject Section -->
@@ -37,7 +37,7 @@
       icon="pi pi-plus"
       iconPos="center"
       (click)="enableAdd()"
-      class="w-100"></button>
+      class="w-100 p-button-secondary"></button>
     <div *ngIf="addMode || subjects.length === 0" class="d-flex gap-md-2">
       <input type="text" pInputText [(ngModel)]="virtualSubject.name" class="p-inputtext-sm" placeholder="Subject">
       <button pButton
@@ -53,12 +53,21 @@
     <div class="d-flex flex-column flex-md-row justify-content-between gap-3" *ngFor="let subject of subjects">
       <span class="subject-name">{{subject.name}}</span>
       <div class="d-flex justify-content-between">
-        <p-dropdown
+      <p-dropdown
       [options]="grades"
       [(ngModel)]="subject.mark"
       class="select-item"
       optionLabel="letter"
       optionValue="degree"></p-dropdown>
+      <p-inputNumber
+      [(ngModel)]="subject.hours" [min]="0" [max]="5"
+      [step]="0.5"
+      class="ms-2"
+      suffix=" Hours"
+      buttonLayout="horizontal" spinnerMode="horizontal"
+      [showButtons]="true"
+
+      mode="decimal"></p-inputNumber>
       <button pButton type="button" icon="pi pi-times"
       class="p-button p-button-danger ms-2" iconPos="left"
       (click)="deleteSubject(subject)"></button>
